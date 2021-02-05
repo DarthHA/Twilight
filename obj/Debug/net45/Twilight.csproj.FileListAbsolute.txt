@@ -1,0 +1,4 @@
+C:\Users\Administrator\Documents\My Games\Terraria\ModLoader\Mod Sources\Twilight\obj\Debug\net45\Twilight.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\My Games\Terraria\ModLoader\Mod Sources\Twilight\obj\Debug\net45\Twilight.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\My Games\Terraria\ModLoader\Mod Sources\Twilight\obj\Debug\net45\Twilight.AssemblyInfo.cs
+C:\Users\Administrator\Documents\My Games\Terraria\ModLoader\Mod Sources\Twilight\obj\Debug\net45\Twilight.csproj.CoreCompileInputs.cache
