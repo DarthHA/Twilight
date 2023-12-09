@@ -1,0 +1,114 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
+namespace Twilight.Projectiles
+{
+    public class EyeBulletReady : ModProjectile
+    {
+        public Vector2 Pos = Vector2.Zero;
+        private float ExtraAlpha = 0;
+        public override void SetStaticDefaults()
+        {
+        }
+        public override void SetDefaults()          //280 400  scale = 0.4
+        {
+            Projectile.width = 112;
+            Projectile.height = 112;
+            Projectile.scale = 1f;
+            Projectile.timeLeft = 6000;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.damage = 100;
+            Projectile.penetrate = -1;
+            Projectile.alpha = 255;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 3;
+        }
+        public override void AI()
+        {
+            if (BirdUtils.FindBody() == -1)
+            {
+                Projectile.Kill();
+                return;
+            }
+
+            Projectile.Center = Main.npc[BirdUtils.FindBody()].Center + Pos;
+
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] > 60)
+            {
+                Projectile.Kill();
+                return;
+            }
+            ExtraAlpha++;
+            if (ExtraAlpha > 30)
+            {
+                ExtraAlpha = 30;
+            }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            EasyDraw.AnotherDraw(BlendState.NonPremultiplied);
+            Texture2D tex1 = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBullet1").Value;
+            Texture2D tex2 = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBullet2").Value;
+            Texture2D tex3 = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBullet3").Value;
+            float ops1, ops2;
+            bool IsScale = false;
+            if (Projectile.ai[0] < 0)
+            {
+                IsScale = true;
+                ops1 = 0;
+                ops2 = 0;
+            }
+            else if (Projectile.ai[0] < 30)
+            {
+                IsScale = true;
+                ops1 = Projectile.ai[0] / 30;
+                ops2 = 0;
+            }
+            else
+            {
+                ops1 = (60 - Projectile.ai[0]) / 30;
+                ops2 = (Projectile.ai[0] - 30) / 30;
+            }
+            if (IsScale)
+            {
+                Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex1.Size() / 2, Projectile.scale * 0.3f * (ExtraAlpha / 30f), SpriteEffects.None, 0);
+            }
+            else
+            {
+                Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, Color.White * ops1, Projectile.rotation, tex1.Size() / 2, Projectile.scale * 0.3f, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, Color.White * ops2, Projectile.rotation, tex2.Size() / 2, Projectile.scale * 0.3f, SpriteEffects.None, 0);
+            EasyDraw.AnotherDraw(BlendState.Additive);
+            Main.spriteBatch.Draw(tex3, Projectile.Center - Main.screenPosition, null, Color.White * ops2 * 0.6f, 0, tex3.Size() / 2, Projectile.scale * 0.45f, SpriteEffects.None, 0);
+
+            EasyDraw.AnotherDraw(BlendState.AlphaBlend);
+            return false;
+        }
+
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
+        }
+        public override void Kill(int timeLeft)
+        {
+            int bird = BirdUtils.FindBody();
+            Vector2 Velocity = (MathHelper.TwoPi * Main.rand.NextFloat()).ToRotationVector2() * 20;
+            if (bird != -1) Velocity = Vector2.Normalize(Projectile.Center - Main.npc[bird].Center - new Vector2(0, -150)) * 20;
+            int protmp = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Velocity, ModContent.ProjectileType<EyeBulletShot>(), Projectile.damage, 0, Projectile.owner);
+            Main.projectile[protmp].localAI[0] = Pos.X;
+            Main.projectile[protmp].localAI[1] = Pos.Y;
+            SoundEngine.PlaySound(new SoundStyle("Twilight/Sounds/EyeBulletFire") { Volume = 0.5f }, Main.player[Projectile.owner].Center);
+        }
+
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+
+    }
+}

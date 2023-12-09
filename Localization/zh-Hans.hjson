@@ -1,0 +1,170 @@
+Mods: {
+	Twilight: {
+		DamageClasses.TwilightDamage.DisplayName: ??? 伤害
+
+		Buffs: {
+			ApocalypseBuff: {
+				DisplayName: 终末鸟
+				Description:
+					'''
+					“大鸟那能够看清数百里外的眼睛，
+					高鸟那能够审判任何罪孽的天秤，
+					小鸟那能够吞噬一切生物的巨口，
+					在它们合为一体的那天，灾难降临了这片森林。”
+					免疫大多数非持续性debuff
+					你的攻击会治疗自己
+					终末鸟将会为你而战。
+					'''
+			}
+
+			BigEyeBuff: {
+				DisplayName: 巨目
+				Description:
+					'''
+					“巨目遮蔽着光源...”
+					受到的伤害降低25%，
+					右键召唤永燃灯魅惑敌人。
+					被魅惑的敌人有几率受到四倍暴击伤害。
+					'''
+			}
+
+			LongArmBuff: {
+				DisplayName: 长臂
+				Description:
+					'''
+					“长臂掩藏了时间......”
+					当击中生命百分比最高的敌人时，会对所有敌人造成15%的伤害。
+					你的所有攻击都有几率施加罪痕debuff，该debuff会增加所有攻击的效果。
+					右键可以发动永恒的审判攻击，消耗所有罪痕造成灵魂伤害。
+					'''
+			}
+
+			PunishmentBuff: {
+				DisplayName: 惩戒！
+				Description: 你的下次攻击会造成三倍伤害。
+			}
+
+			SinBuff: {
+				DisplayName: 罪痕
+				Description: ""
+			}
+
+			SmallPeakBuff: {
+				DisplayName: 小喙
+				Description:
+					'''
+					“小喙窃窃私语，喋喋不休......”
+					受到伤害后，下次攻击将会造成三倍伤害。
+					右键向指定位置发动巨口攻击。
+					发动巨口攻击时所有敌人移动速度降低。
+					'''
+			}
+
+			SpecialAttackCDBuff: {
+				DisplayName: 能力冷却中
+				Description: '''"zzz..."'''
+			}
+
+			TwilightBleedingBuff: {
+				DisplayName: 流血
+				Description: ""
+			}
+
+			TwilightCDBuff: {
+				DisplayName: 终末鸟同化冷却中
+				Description: 你暂时不能与终末鸟同化...
+			}
+
+			TwilightParadisedBuff: {
+				DisplayName: 麻痹
+				Description: ""
+			}
+
+			TwilightStunnedBuff: {
+				DisplayName: 击晕
+				Description: ""
+			}
+		}
+
+		Items: {
+			TwilightItem: {
+				DisplayName: 薄暝
+				Tooltip: ""
+			}
+		}
+
+		NPCs: {
+			ApoBirdBody.DisplayName: 终末鸟
+			ApoBirdClaw.DisplayName: 终末鸟
+			ApoBirdHead.DisplayName: 终末鸟
+		}
+
+		ItemTooltipExtra1:
+			'''
+			[c/FF0000:ALEPH]级E.G.O.武器
+			“[c/FFA500:大鸟那永不闭合的眼睛]、
+			[c/87CEEB:高鸟那能衡量一切罪恶的天平]、
+			[c/FF0000:小鸟那能吞噬一切的巨口]，
+			这三者守护着黑森林的和平。
+			而那些能够同时驾驭这三者的人也能带来和平。”
+			按[Shift]以获取更多信息
+			'''
+		ItemTooltipExtra2:
+			'''
+			同时受到近战，远程和魔法攻击的增益
+			生命值低于50%时基础伤害翻倍
+			左键轮流使用四种强力的攻击
+			右键使自己和终末鸟同化
+			终末鸟模式下，按下左键发动普通攻击，按下右键发动特殊攻击
+			按下中键会在三鸟状态中轮流切换
+			每种模式都会带来独特的增益
+			切换武器以解除同化
+			注意，解除同化后你在30秒内不能再次进入同化状态。
+			'''
+
+		Configs: {
+			CustomConfig: {
+				DisplayName: 自意义配置
+
+				UseScreenEffect: {
+					Label: 使用屏幕特效
+					Tooltip: 这包括一些屏幕特效和震动
+				}
+
+				UseBGM: {
+					Label: 在终末鸟模式下播放BGM
+					Tooltip: ""
+				}
+			}
+		}
+
+		Projectiles: {
+			EyeBulletExplosion.DisplayName: 薄暝
+			EyeBulletReady.DisplayName: 薄暝
+			EyeBulletShot.DisplayName: 薄暝
+			EyeLantern.DisplayName: 目灯
+			JusticeDamage.DisplayName: 正义裁决
+			JusticeDamage2.DisplayName: 倾斜的天平
+			JustitiaEffect.DisplayName: 正义裁决
+			JustitiaEffect2.DisplayName: 正义裁决
+			JustitiaEffect3.DisplayName: 罪痕
+			MeleeHitEffect.DisplayName: 终末
+			PeckBlood.DisplayName: 小喙血溅
+			PeckCenter.DisplayName: 小喙
+			TwilightBlood.DisplayName: 薄暝血溅
+			TwilightBulletExplosion.DisplayName: 照亮森林的光芒
+			TwilightBulletShot.DisplayName: 照亮森林的光芒
+			TwilightJustitia.DisplayName: 正义裁决
+			TwilightShoot.DisplayName: 薄瞑射线（大雾
+			TwilightSlash.DisplayName: 薄瞑横斩
+			TwilightStrike.DisplayName: 薄瞑纵劈
+			TwilightSummon.DisplayName: 召唤鸟！
+			TwilightSwing.DisplayName: 薄瞑直挥
+			EyeLantern2.DisplayName: 目灯
+			MeleeSharp.DisplayName: 终末
+			MeleeSmoke.DisplayName: 终末
+			PeckSplit.DisplayName: 小喙
+			TwilightSpecial.DisplayName: 薄暝
+		}
+	}
+}

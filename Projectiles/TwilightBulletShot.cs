@@ -1,0 +1,130 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Twilight.Items;
+
+namespace Twilight.Projectiles
+{
+    public class TwilightBulletShot : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 50;
+        }
+        public override void SetDefaults()          //280 400  scale = 0.4
+        {
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.scale = 1f;
+            Projectile.DamageType = ModContent.GetInstance<TwilightDamage>();
+            Projectile.friendly = true;
+            Projectile.timeLeft = 600;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.damage = 100;
+            Projectile.penetrate = 1;
+            Projectile.alpha = 255;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 3;
+            Projectile.extraUpdates = 1;
+        }
+        public override void AI()
+        {
+            Projectile.ai[0]++;
+            int t = HomeOnTarget(1500);
+            if (t != -1)
+            {
+                NPC target = Main.npc[t];
+                Vector2 MoveVel = Vector2.Normalize(target.Center - Projectile.Center) * 15;
+                Projectile.velocity = (MoveVel * 6 + Projectile.velocity * 145) / 150;
+            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi / 2;
+
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D TrailTex = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBulletTrail").Value;
+            Texture2D tex2 = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBullet2").Value;
+            Texture2D tex3 = ModContent.Request<Texture2D>("Twilight/Projectiles/EyeBullet3").Value;
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.EffectMatrix);
+            EasyDraw.AnotherDraw(BlendState.Additive);
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type] - 1; i++)
+            {
+                //int i2 = (int)(i + Projectile.ai[0]) % (ProjectileID.Sets.TrailCacheLength[Projectile.type] - 1);
+                Rectangle rectangle = new Rectangle(0, 5 * i, 84, 5 * (i + 1));  //10 84
+                float len = (Projectile.oldPos[i + 1] - Projectile.oldPos[i]).Length();
+                if (Projectile.oldPos[i + 1] == Vector2.Zero || Projectile.oldPos[i] == Vector2.Zero) continue;
+                Vector2 scale = new Vector2(0.15f, len / 10);
+                float ops = (50f - i) / 100f;
+                Vector2 MidCenter = (Projectile.oldPos[i] + Projectile.oldPos[i + 1]) / 2 + Projectile.Size / 2;
+                Main.spriteBatch.Draw(TrailTex, MidCenter - Main.screenPosition, rectangle, Color.Orange * ops, Projectile.oldRot[i], rectangle.Size() / 2, scale, SpriteEffects.None, 0);
+            }
+
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.EffectMatrix);
+            EasyDraw.AnotherDraw(BlendState.NonPremultiplied);
+            Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex2.Size() / 2, Projectile.scale * 0.18f, SpriteEffects.None, 0);
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.EffectMatrix);
+            EasyDraw.AnotherDraw(BlendState.Additive);
+            Main.spriteBatch.Draw(tex3, Projectile.Center - Main.screenPosition, null, Color.White * 0.75f, 0, tex3.Size() / 2, Projectile.scale * 0.27f, SpriteEffects.None, 0);
+            EasyDraw.AnotherDraw(BlendState.AlphaBlend);
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.EffectMatrix);
+            return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SomeUtils.DeepApplyParadise(target, 300);
+            //Twilight.DeepAddBuff(target, ModContent.BuffType<TwilightParadisedBuff>(), 300);
+        }
+
+        public override bool? CanDamage()
+        {
+            if (Projectile.ai[0] < 30)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(new SoundStyle("Twilight/Sounds/EyeBulletSmall") { Volume = 0.5f }, Projectile.Center);
+            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TwilightBulletExplosion>(), Projectile.damage, 0, Projectile.owner);
+        }
+
+        public int HomeOnTarget(int Range)
+        {
+            float homingMaximumRangeInPixels = Range;
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC n = Main.npc[i];
+                if (n.CanBeChasedBy(Projectile))
+                {
+                    float distance = Projectile.Distance(n.Center);
+                    if (distance <= homingMaximumRangeInPixels &&
+                        (
+                            selectedTarget == -1 || //there is no selected target
+                            Projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                    )
+                        selectedTarget = i;
+                }
+            }
+
+            return selectedTarget;
+        }
+
+
+    }
+}

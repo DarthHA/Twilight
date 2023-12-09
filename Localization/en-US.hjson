@@ -1,0 +1,169 @@
+Mods: {
+	Twilight: {
+		DamageClasses.TwilightDamage.DisplayName: ??? Damage
+
+		Buffs: {
+			ApocalypseBuff: {
+				DisplayName: Apocalypse Bird
+				Description:
+					'''
+					"The day when Big Bird's eyes that could see hundreds of kilometers away,
+					Long Bird who could judge any sin,
+					and Small Bird's mouth that could devour everything united into one,
+					darkness fell upon the forest."
+					Immune to most non-persistent debuffs
+					Your attack will heal yourself
+					The Apocalypse Bird will stand by your side.
+					'''
+			}
+
+			BigEyeBuff: {
+				DisplayName: Big Eye
+				Description:
+					'''
+					"The Big Bird’s eyes imprisoned light."
+					Damage taken is reduced by 25%.
+					Right click to summon a lamp whick will charm the enemy.
+					Enchanted enemies will have a chance to take 4x crit damage.
+					'''
+			}
+
+			LongArmBuff: {
+				DisplayName: Long Arm
+				Description:
+					'''
+					"The Long Bird's arms concealed time."
+					When hitting the enemy with the most health percent,all the enemies will take 15% of the damage.
+					All of your attacks have a chance to inflict Mark of Sin, which will increase the effect of all attacks.
+					Right click to launch the Ceaseless Judgement Attack, consuming all Mark of Sins to deal Pale Damage.
+					'''
+			}
+
+			PunishmentBuff: {
+				DisplayName: Punishment!
+				Description: Your next attack will deal 3x damage.
+			}
+
+			SinBuff: {
+				DisplayName: Mark of Sin
+				Description: ""
+			}
+
+			SmallPeakBuff: {
+				DisplayName: Small Beak
+				Description:
+					'''
+					"and the Small Bird's beak whispered, endlessly…"
+					Taking damage will cause the next attack deal 3x damage.
+					Right click to launch the Torn Mouth Attack at the selected position.
+					During the Torn Mouth Attack, all enemies will slow down.
+					'''
+			}
+
+			SpecialAttackCDBuff: {
+				DisplayName: Ability Cooldown
+				Description: '''"zzz..."'''
+			}
+
+			TwilightBleedingBuff: {
+				DisplayName: Bleeding
+				Description: ""
+			}
+
+			TwilightCDBuff: {
+				DisplayName: Apocalypse Bird Synchronize Cooldown
+				Description: You cannot synchronize with Apocalypse Bird temporarily...
+			}
+
+			TwilightParadisedBuff: {
+				DisplayName: Paradised
+				Description: ""
+			}
+
+			TwilightStunnedBuff: {
+				DisplayName: Stunned
+				Description: ""
+			}
+		}
+
+		Items: {
+			TwilightItem: {
+				DisplayName: Twilight
+				Tooltip: ""
+			}
+		}
+
+		NPCs: {
+			ApoBirdBody.DisplayName: Apocalypse Bird
+			ApoBirdClaw.DisplayName: Apocalypse Bird
+			ApoBirdHead.DisplayName: Apocalypse Bird
+		}
+
+		ItemTooltipExtra1:
+			'''
+			[c/FF0000:ALEPH] E.G.O. Weapon
+			"Just like how [c/FFA500:the ever-watching eyes],
+			[c/87CEEB: the scale that could measure any and all sin],
+			[c/FF0000: and the beak that could swallow everything] protected the peace of the Black Forest...
+			The wielder of this armament may also bring peace as they did"
+			Press [Shift] for more details
+			'''
+		ItemTooltipExtra2:
+			'''
+			Affected by melee, ranged and magic damage bonus
+			The base damage is doubled when your health is below 50%
+			Left click to use four powerful attacks in turn
+			Right click to synchronize with the Apocalypse Bird
+			In Apocalypse Bird mode, left click to launch a normal attack, and right click to launch a special attack
+			Middle click to switch states between the Three Birds
+			Every state will bring unique buffs
+			Switch weapons to desynchronize
+			Note that you cannot synchronize again within 30 seconds after desynchronizing.
+			'''
+
+		Configs: {
+			CustomConfig: {
+				DisplayName: Custom Config
+
+				UseScreenEffect: {
+					Label: Use screen effects
+					Tooltip: This includes some screen effects and shakes
+				}
+
+				UseBGM: {
+					Label: Play BGM in Apocalypse Bird mode
+					Tooltip: ""
+				}
+			}
+		}
+
+		Projectiles: {
+			EyeBulletExplosion.DisplayName: Twilight
+			EyeBulletReady.DisplayName: Twilight
+			EyeBulletShot.DisplayName: Twilight
+			EyeLantern.DisplayName: Eye Lantern
+			JusticeDamage.DisplayName: Justitia
+			JusticeDamage2.DisplayName: Tilted Scale
+			JustitiaEffect.DisplayName: Justitia
+			JustitiaEffect2.DisplayName: Justitia
+			JustitiaEffect3.DisplayName: Sin Mark
+			MeleeHitEffect.DisplayName: Apocalypse
+			PeckBlood.DisplayName: Beak Blood
+			PeckCenter.DisplayName: Small Beak
+			TwilightBlood.DisplayName: Twilight Blood
+			TwilightBulletExplosion.DisplayName: Light Illuminating the Forest
+			TwilightBulletShot.DisplayName: Light Illuminating the Forest
+			TwilightJustitia.DisplayName: Justitia
+			TwilightShoot.DisplayName: Twilight Shoot
+			TwilightSlash.DisplayName: Twilight Slash
+			TwilightStrike.DisplayName: Twilight Strike
+			TwilightSummon.DisplayName: Summon The Bird!
+			TwilightSwing.DisplayName: Twilight Swing
+			EyeLantern2.DisplayName: Eye Lantern
+			MeleeSharp.DisplayName: Apocalypse
+			MeleeSmoke.DisplayName: Apocalypse
+			PeckSplit.DisplayName: Small Beak
+			TwilightSpecial.DisplayName: Twilight
+		}
+	}
+}
